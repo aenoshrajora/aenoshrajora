@@ -4,7 +4,7 @@
 
 # 👋 &nbsp;Hi there
 
-Enthusiastic and results-driven Cybersecurity Specialist with a fervor for designing and implementing robust security frameworks. I am dedicated to fortifying digital landscapes against evolving cyber threats, ensuring the confidentiality, integrity, and availability of sensitive information. My solid foundation in cybersecurity, combined with adept problem-solving skills, positions me to contribute effectively to safeguarding digital assets. My goal is to leverage my expertise to develop and implement innovative security solutions, enhancing the overall security posture of organizations. You can find me on LinkedIn [@aenoshrajora](https://linkedin.com/aenosh-rajora). Feel free to tweet me any time. You can also check out my website [aenoshrajora.com](https://aenoshrajora.netlify.app).
+Enthusiastic and results-driven Cybersecurity Specialist with a fervor for designing and implementing robust security frameworks. I am dedicated to fortifying digital landscapes against evolving cyber threats, ensuring the confidentiality, integrity, and availability of sensitive information. My solid foundation in cybersecurity, combined with adept problem-solving skills, positions me to contribute effectively to safeguarding digital assets. My goal is to leverage my expertise to develop and implement innovative security solutions, enhancing the overall security posture of organizations. You can find me on LinkedIn [@aenoshrajora](https://linkedin.com/aenosh-rajora). Feel free to DM me any time. You can also check out my website [aenoshrajora.com](https://aenoshrajora.netlify.app).
 
 
 ## 🧰 &nbsp;My toolbox
