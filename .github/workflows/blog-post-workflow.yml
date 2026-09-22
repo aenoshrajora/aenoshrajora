@@ -2,16 +2,17 @@ name: Latest blog post workflow
 on:
   schedule: # Run workflow automatically
     - cron: "0 0 * * *" # Runs once per day
-  workflow_dispatch: # Run workflow manually (without waiting for the cron to be called), through the GitHub Actions Workflow page directly
+  workflow_dispatch: # Run workflow manually, from the Actions tab
 
 jobs:
   update-readme-with-blog:
-    name: Update this repo's README with latest blog posts
+    name: Update this repo's README with latest Medium posts
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      - name: Pull in Cyris.io posts
+        uses: actions/checkout@v4
+      - name: Pull in latest Medium posts
         uses: gautamkrishnar/blog-post-workflow@v1
         with:
-          feed_list: "https://cyris.io/feed.xml"
+          feed_list: "https://aenoshrajora.medium.com/feed"
+          max_post_count: 5

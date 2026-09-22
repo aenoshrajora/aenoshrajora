@@ -1,0 +1,44 @@
+name: Update terminal stat card
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours
+  workflow_dispatch:         # allow manual "Run workflow" trigger
+  push:
+    branches: [master, main]
+
+jobs:
+  update-stats:
+    name: Regenerate neofetch SVGs
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Cache LOC data between runs
+        uses: actions/cache@v4
+        with:
+          path: cache
+          key: loc-cache-${{ github.repository }}
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Generate stat card
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          USER_NAME: aenoshrajora
+        run: python scripts/generate_stats.py
+
+      - name: Commit updates
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: refresh stat card + latest/starred repos"
+          file_pattern: "assets/*.svg cache/* README.md"
