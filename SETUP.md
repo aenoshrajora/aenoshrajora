@@ -32,6 +32,25 @@ Settings → Actions → General → Allow all actions, and make sure **workflow
 permissions** are set to "Read and write permissions" so `profile-stats.yml`
 can push the refreshed SVGs back to the repo.
 
+## 3.5 Verify the token before pushing (optional but saves a debug loop)
+
+```bash
+curl -H "Authorization: bearer YOUR_TOKEN" https://api.github.com/graphql \
+  -d '{"query":"query{viewer{login}}"}'
+```
+
+If that returns your username, the token is good and the problem (if any) is in
+how the secret got saved, not the token itself. A `401 Bad credentials` here
+means the token itself is bad — usually a trailing space/newline picked up
+when copy-pasting, an expired fine-grained token, or a revoked one.
+
+If you hit `401 Bad credentials` from the *workflow* specifically (not this
+curl check), the token is fine but the secret isn't reaching the job — the
+most common cause is the secret being added under the **Variables** tab
+instead of **Secrets** (Settings → Secrets and variables → Actions has both;
+`secrets.ACCESS_TOKEN` only resolves for the Secrets tab). The script now
+fails fast with a specific message for each case instead of a bare 401.
+
 ## 4. First run
 
 Actions tab → "Update terminal stat card" → Run workflow (manual trigger). It

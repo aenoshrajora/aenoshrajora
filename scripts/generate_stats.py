@@ -35,7 +35,23 @@ import requests
 from dateutil import relativedelta
 from lxml import etree
 
-HEADERS = {"authorization": "token " + os.environ["ACCESS_TOKEN"]}
+def _require_token():
+    token = os.environ.get("ACCESS_TOKEN", "").strip()
+    if not token:
+        raise SystemExit(
+            "ACCESS_TOKEN is empty or not set.\n"
+            "This almost always means one of:\n"
+            "  1. The secret was added under the repo's 'Variables' tab instead of 'Secrets'\n"
+            "     (Settings -> Secrets and variables -> Actions -> Secrets tab, not Variables)\n"
+            "  2. The secret name doesn't match ACCESS_TOKEN exactly (case-sensitive)\n"
+            "  3. The workflow step is missing 'env: ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}'\n"
+            "See SETUP.md step 1-2 for how to create and attach the token."
+        )
+    return token
+
+
+ACCESS_TOKEN = _require_token()
+HEADERS = {"authorization": "token " + ACCESS_TOKEN}
 USER_NAME = os.environ.get("USER_NAME", "aenoshrajora")
 CACHE_DIR = os.path.join(os.path.dirname(__file__), "..", "cache")
 README_PATH = os.path.join(os.path.dirname(__file__), "..", "README.md")
@@ -58,6 +74,21 @@ def gql(name, query, variables):
         headers=HEADERS,
         timeout=30,
     )
+    if r.status_code == 401:
+        raise SystemExit(
+            f"{name} got 401 Bad credentials from GitHub.\n"
+            "The ACCESS_TOKEN secret is present but GitHub is rejecting it outright "
+            "(this is different from a permissions/403 error). Likely causes:\n"
+            "  1. The token was pasted with a trailing space/newline when saving the secret\n"
+            "  2. The token expired (fine-grained PATs default to a max ~1yr expiry)\n"
+            "  3. The token was revoked, or the repo secret still holds an old value\n"
+            "Fix: regenerate the fine-grained PAT (Settings -> Developer settings -> "
+            "Personal access tokens -> Fine-grained tokens), copy it fresh, and overwrite "
+            "the ACCESS_TOKEN repo secret (Settings -> Secrets and variables -> Actions -> "
+            "Secrets tab). You can sanity-check a token locally before pushing with:\n"
+            '  curl -H "Authorization: bearer YOUR_TOKEN" https://api.github.com/graphql '
+            '-d \'{"query":"query{viewer{login}}"}\''
+        )
     if r.status_code != 200:
         raise RuntimeError(f"{name} failed [{r.status_code}]: {r.text}")
     payload = r.json()
