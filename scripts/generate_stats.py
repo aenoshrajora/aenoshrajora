@@ -164,7 +164,7 @@ def repos_and_stars(username, affiliations, cursor=None, repos=None):
                 repositories(first: 100, after: $cursor, ownerAffiliations: $aff) {
                     totalCount
                     edges {
-                        node { nameWithOwner stargazers { totalCount } }
+                        node { nameWithOwner stargazerCount }
                     }
                     pageInfo { endCursor hasNextPage }
                 }
@@ -176,7 +176,7 @@ def repos_and_stars(username, affiliations, cursor=None, repos=None):
     repos += block["edges"]
     if block["pageInfo"]["hasNextPage"]:
         return repos_and_stars(username, affiliations, block["pageInfo"]["endCursor"], repos)
-    stars = sum(r["node"]["stargazers"]["totalCount"] for r in repos)
+    stars = sum(r["node"]["stargazerCount"] for r in repos)
     return block["totalCount"], stars, repos
 
 
