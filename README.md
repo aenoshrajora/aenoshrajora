@@ -71,6 +71,12 @@ Burp Suite • BloodHound • Impacket • Metasploit • Nmap • Sliver • Ne
 <sub>My 4 most recently pushed-to public repos — updates whenever I push.</sub>
 
 <!-- LATEST-PROJECTS:START -->
+| Repo | Description | Language | ⭐ | Updated |
+|---|---|---|---|---|
+| [aenoshrajora](https://github.com/aenoshrajora/aenoshrajora) | About Me | Python | 0 | today |
+| [OSINTel-Dashboard](https://github.com/aenoshrajora/OSINTel-Dashboard) | A dynamic, Flask-based web application providing a centralized interface for executing ... | Python | 42 | 6mo ago |
+| [DomainSleuth](https://github.com/HaydnZK/DomainSleuth) | Active Directory Attack Path & Misconfiguration Analyzer | Python | 1 | 6mo ago |
+| [Cyber-Portfolio](https://github.com/aenoshrajora/Cyber-Portfolio) |  | Python | 0 | 11mo ago |
 <!-- LATEST-PROJECTS:END -->
 
 ---
@@ -80,6 +86,12 @@ Burp Suite • BloodHound • Impacket • Metasploit • Nmap • Sliver • Ne
 <sub>My own repos, ranked by star count.</sub>
 
 <!-- TOP-REPOS:START -->
+| Repo | Description | Language | ⭐ | Updated |
+|---|---|---|---|---|
+| [OSINTel-Dashboard](https://github.com/aenoshrajora/OSINTel-Dashboard) | A dynamic, Flask-based web application providing a centralized interface for executing ... | Python | 42 | 6mo ago |
+| [Stack-Game-JavaScript](https://github.com/aenoshrajora/Stack-Game-JavaScript) | A simple stack game implemented in HTML, CSS, and JavaScript. This project provides a v... | JavaScript | 28 | 2y ago |
+| [Ghost-Phish](https://github.com/aenoshrajora/Ghost-Phish) | Ghost-Phish is a Bash-based tool for simulating phishing attacks, offering customizable... | HTML | 9 | 1y ago |
+| [recon-pipeline](https://github.com/aenoshrajora/recon-pipeline) | A modular Python-based recon framework for red teaming and bug bounty engagements. Feat... | Python | 4 | 1y ago |
 <!-- TOP-REPOS:END -->
 
 ---
@@ -89,6 +101,7 @@ Burp Suite • BloodHound • Impacket • Metasploit • Nmap • Sliver • Ne
 <sub>Repos I've starred most recently — a rough feed of what's caught my attention.</sub>
 
 <!-- STARRED-REPOS:START -->
+_Nothing starred publicly yet._
 <!-- STARRED-REPOS:END -->
 
 ---
