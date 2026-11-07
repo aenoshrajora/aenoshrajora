@@ -217,8 +217,25 @@ def recursive_loc(owner, repo, owner_id, cursor=None, add=0, delete=0, mine=0):
     return add, delete, mine
 
 
+def commit_total(owner, repo):
+    """Cheap one-call check of a repo's total commit count on its default branch."""
+    data = gql(
+        "commit_total",
+        """
+        query($owner: String!, $repo: String!) {
+            repository(owner: $owner, name: $repo) {
+                defaultBranchRef { target { ... on Commit { history { totalCount } } } }
+            }
+        }""",
+        {"owner": owner, "repo": repo},
+    )
+    ref = data["repository"]["defaultBranchRef"]
+    return 0 if ref is None else ref["target"]["history"]["totalCount"]
+
+
 def loc_totals(username, owner_id, repo_edges):
-    """Cached per-repo LOC totals, keyed by nameWithOwner hash + commit count."""
+    """Cached per-repo LOC totals. Cache line: key add del mine total_commits.
+    A repo is only re-walked when its commit count changed since the last run."""
     os.makedirs(CACHE_DIR, exist_ok=True)
     cache_path = os.path.join(CACHE_DIR, hashlib.sha256(username.encode()).hexdigest() + ".txt")
     cache = {}
@@ -235,10 +252,15 @@ def loc_totals(username, owner_id, repo_edges):
         name = edge["node"]["nameWithOwner"]
         key = hashlib.sha256(name.encode()).hexdigest()
         owner, repo = name.split("/")
-        add, delete, mine = recursive_loc(owner, repo, owner_id)
+        total = commit_total(owner, repo)
+        cached = cache.get(key)
+        if cached and int(cached[3]) == total:
+            add, delete, mine = int(cached[0]), int(cached[1]), int(cached[2])
+        else:
+            add, delete, mine = recursive_loc(owner, repo, owner_id)
         add_total += add
         del_total += delete
-        new_cache_lines.append(f"{key} {add} {delete} {mine}\n")
+        new_cache_lines.append(f"{key} {add} {delete} {mine} {total}\n")
 
     with open(cache_path, "w") as f:
         f.writelines(new_cache_lines)
