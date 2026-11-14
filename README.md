@@ -76,7 +76,7 @@ Burp Suite • BloodHound • Impacket • Metasploit • Nmap • Sliver • Ne
 | [aenoshrajora](https://github.com/aenoshrajora/aenoshrajora) | About Me | Python | 0 | today |
 | [OSINTel-Dashboard](https://github.com/aenoshrajora/OSINTel-Dashboard) | A dynamic, Flask-based web application providing a centralized interface for executing ... | Python | 42 | 6mo ago |
 | [DomainSleuth](https://github.com/HaydnZK/DomainSleuth) | Active Directory Attack Path & Misconfiguration Analyzer | Python | 1 | 6mo ago |
-| [Cyber-Portfolio](https://github.com/aenoshrajora/Cyber-Portfolio) |  | Python | 0 | 11mo ago |
+| [Cyber-Portfolio](https://github.com/aenoshrajora/Cyber-Portfolio) |  | Python | 0 | 12mo ago |
 <!-- LATEST-PROJECTS:END -->
 
 ---
